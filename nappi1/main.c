@@ -28,9 +28,9 @@ int main(int argc, char** argv) {
     nLeds = sizeof(leds) / sizeof(int);
     
     wiringPiSetup();
-//    printf("hoi\n");
     printf("Leds: %i\n", nLeds);
-//    Setup the outputs
+
+    //    Setup the outputs
     for(i = 0; i < nLeds; i++) {
         pinMode(i, OUTPUT);
     }
