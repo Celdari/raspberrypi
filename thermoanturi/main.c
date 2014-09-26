@@ -22,21 +22,21 @@ int main(void) {
     char buf[NUMBER_OF_DEVICES][256]; // Data from device
     char tmpData[6]; // Temp C * 1000 reported by device 
     char path[] = "/sys/bus/w1/devices";
-    int i, n = 0;
+    int i = 0;
     ssize_t numRead;
+    printf("\n");
 
     dir = opendir(path);
     if (dir != NULL) {
-        //        for(i = 0; (dirent = readdir(dir)); i++)
         while ((dirent = readdir(dir)))
             // 1-wire devices are links beginning with 28-
             if (dirent->d_type == DT_LNK &&
                     strstr(dirent->d_name, "28-") != NULL) {
-                strcpy(dev[n], dirent->d_name);
-                printf("\nDevice: %s", dev[n]);
-                n++;
+                strcpy(dev[i], dirent->d_name);
+                printf("Device: %s\n", dev[i]);
+                i++;
             }
-
+        
         (void) closedir(dir);
     } else {
         perror("Couldn't open the w1 devices directory");
@@ -44,14 +44,13 @@ int main(void) {
     }
 
     // Assemble path to OneWire device
-    for (i = 0; i < n; i++)
+    for (i = 0; i < NUMBER_OF_DEVICES; i++)
         sprintf(devPath[i], "%s/%s/w1_slave", path, dev[i]);
     // Read temp continuously
     // Opening the device's file triggers new reading
-    printf("\n");
     while (1) {
         printf("\n");
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < NUMBER_OF_DEVICES; i++) {
             int fd = open(devPath[i], O_RDONLY);
             if (fd == -1) {
                 perror("Couldn't open the w1 device.");
@@ -64,7 +63,7 @@ int main(void) {
                 printf("Temp: %.3f C  ", tempC / 1000);
                 printf("%.3f F\n", (tempC / 1000) * 9 / 5 + 32);
 
-                
+
             }
             close(fd);
         }
