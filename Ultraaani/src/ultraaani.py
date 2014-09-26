@@ -9,5 +9,5 @@ __date__ ="$26.9.2014 12:44:24$"
 import smbus
 
 i2c = smbus.SMBus(1)
-i2c.write_byte_data(0x70, 0, 81)
-print i2c.read_word_data(0x70, 2) / 255
+i2c.write_byte_data(0x51, 0, 81)
+print i2c.read_word_data(0x51, 2) / 255
