@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=led1
+PROJECTNAME=ultraani2
 
 # Active Configuration
 DEFAULTCONF=Debug
