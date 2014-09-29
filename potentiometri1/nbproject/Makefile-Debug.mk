@@ -39,7 +39,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-lwiringPi
 
 # CC Compiler Flags
 CCFLAGS=
