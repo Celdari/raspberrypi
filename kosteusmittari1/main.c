@@ -14,7 +14,8 @@
 
 
 #define SPEED_SPI 1000000
-#define CHANNEL 0
+#define CHANNEL 5
+#define CHIP_SELECT 1
 /*
  * 
  */
@@ -26,7 +27,7 @@ int main(int argc, char** argv) {
     int i;
     uint32_t x1, tot;
     
-    if (fd = wiringPiSPISetup (CHANNEL, 1000000) < 0) {
+    if (fd = wiringPiSPISetup (CHIP_SELECT, 1000000) < 0) {
         fprintf (stderr, "SPI Setup failed: %s\n", strerror (errno));
         return 1;
     }    
@@ -54,7 +55,7 @@ int readadc(int adcnum) {
     buff[0] = 1;
     buff[1] = (8 + adcnum) << 4;
     buff[2] = 0;
-    wiringPiSPIDataRW(0, buff, 3);
+    wiringPiSPIDataRW(CHIP_SELECT, buff, 3);
     adc = ((buff[1]&3) << 8) + buff[2];
     return adc;
 }
